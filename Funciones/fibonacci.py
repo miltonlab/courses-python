@@ -1,4 +1,5 @@
 '''
+Creditos:
 Tutorial PyAr http://docs.python.org.ar/tutorial/3/index.html
 '''
 def fib(n):  # escribe la serie de Fibonacci hasta n
