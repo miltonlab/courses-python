@@ -1,0 +1,1 @@
+https://www.solvetic.com/tutoriales/article/2127-aplicaciones-con-base-de-datos-sqlite-pyqt-y-qt-desginer/
