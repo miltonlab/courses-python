@@ -1,0 +1,1513 @@
+
+CREATE TABLE [ALICUOTA_PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[AliPr_TerrCom] [numeric](19, 4) NULL ,
+	[AliPr_TerrPriv] [numeric](19, 4) NULL ,
+	[AliPr_EdifCom] [numeric](19, 4) NULL ,
+	[AliPr_EdifPriv] [numeric](19, 4) NULL ,
+	[AliPr_General] [numeric](19, 4) NULL ,
+	CONSTRAINT [FK_ALICUOTA_REFERENCE_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [BLOQUES_PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[BloPr_Numero] [int] NOT NULL ,
+	[BloPr_SuperfConstr] [numeric](19, 4) NULL ,
+	[BloPr_RTipoConstr] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[BloPr_EdadConstr] [int] NULL ,
+	[BloPr_EdadReparacion] [int] NULL ,
+	[BloPr_NumPisos] [int] NULL ,
+	[BloPr_SumatIndic] [numeric](19, 4) NULL ,
+	[BloPr_ValM2Reps] [numeric](19, 4) NULL ,
+	[BloPr_ValComerM2] [numeric](19, 4) NULL ,
+	[BloPr_ValComerEdifBlo] [numeric](19, 4) NULL ,
+	[BloPr_PorcentajeReparacion] [int] NULL ,
+	CONSTRAINT [PK_BLOQUES_PREDIO] PRIMARY KEY  CLUSTERED 
+	(
+		[Pre_CodigoCatastral],
+		[BloPr_Numero]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_BLOQUES__REFERENCE_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [CARTERA_VENCIDA] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[CarVe_RUC] [varchar] (13) COLLATE Modern_Spanish_CI_AS NULL ,
+	[CarVe_CI] [varchar] (10) COLLATE Modern_Spanish_CI_AS NULL ,
+	[CarVe_Nombres] [varchar] (100) COLLATE Modern_Spanish_CI_AS NULL ,
+	[CarVe_Calle] [varchar] (100) COLLATE Modern_Spanish_CI_AS NULL ,
+	[CarVe_numero] [varchar] (20) COLLATE Modern_Spanish_CI_AS NULL ,
+	[CarVe_direccPropietario] [varchar] (150) COLLATE Modern_Spanish_CI_AS NULL ,
+	[CarVe_ValTotalTerrPredio] [numeric](18, 0) NULL ,
+	[CarVe_ValTotalEdifPredio] [numeric](19, 4) NULL ,
+	[CarVe_ValCultivos] [numeric](19, 4) NULL ,
+	[CarVe_ValForestales] [numeric](19, 4) NULL ,
+	[CarVe_ValObrasInter] [numeric](19, 4) NULL ,
+	[CarVe_ValOtrasInver] [numeric](19, 4) NULL ,
+	[CarVe_ValComerPredio] [numeric](19, 4) NULL ,
+	[CarVe_RebajaHipotec] [numeric](19, 4) NULL ,
+	[CarVe_BaseImponible] [numeric](19, 4) NULL ,
+	[CarVe_RebajaGeneral] [numeric](19, 4) NULL ,
+	[CarVe_IPU] [numeric](19, 4) NULL ,
+	[CarVe_Magisterio] [numeric](19, 4) NULL ,
+	[CarVe_EducacionElemental] [numeric](19, 4) NULL ,
+	[CarVe_MedicinaRural] [numeric](19, 4) NULL ,
+	[CarVe_EstablecEducativos] [numeric](18, 2) NULL ,
+	[CarVe_SolNoEdif] [numeric](19, 4) NULL ,
+	[CarVe_ConstObsoleta] [numeric](19, 4) NULL ,
+	[CarVe_SNERecargo] [numeric](19, 4) NULL ,
+	[CarVe_ViviendaRural] [numeric](19, 4) NULL ,
+	[CarVe_FechaEmision] [datetime] NULL ,
+	[CarVe_TituloGral] [varchar] (18) COLLATE Modern_Spanish_CI_AS NULL ,
+	[CarVe_TasaAdministrativa] [numeric](19, 4) NULL ,
+	[CarVe_OtrosAdicionales] [numeric](19, 4) NULL ,
+	[CarVe_RecoleccionBasura] [numeric](19, 4) NULL ,
+	[CarVe_Bomberos] [numeric](19, 4) NOT NULL ,
+	[CarVe_ValorEmitido] [numeric](19, 4) NULL ,
+	[CarVe_ValorTCobrado] [numeric](19, 4) NULL ,
+	[CarVe_NumTitulo] [varchar] (15) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[CarVe_Interes] [numeric](19, 4) NULL ,
+	[CarVe_FechaRecaudacion] [datetime] NULL ,
+	[CarVe_Estado] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	[CarVe_Observaciones] [varchar] (250) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Usu_usuario] [varchar] (15) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Carve_Valor1] [numeric](19, 4) NULL ,
+	[Carve_Valor2] [numeric](19, 4) NULL ,
+	CONSTRAINT [PK_CARTERA_VENCIDA] PRIMARY KEY  CLUSTERED 
+	(
+		[CarVe_NumTitulo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [CIUDADANO] (
+	[Ciu_Cedula] [varchar] (10) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[Ciu_Apellidos] [varchar] (80) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Ciu_Nombres] [varchar] (80) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Ciu_EstadoCivil] [varchar] (13) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_CIUDADANO] PRIMARY KEY  CLUSTERED 
+	(
+		[Ciu_Cedula]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+
+
+CREATE TABLE [CLASE_TIERRAS] (
+	[ClaTi_Codigo] [int] NOT NULL ,
+	[ZonHo_Codigo] [int] NULL ,
+	[ClaTi_Descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[ClaTi_Puntaje] [int] NULL ,
+	[ClaTi_CoefCorrecion] [numeric](19, 4) NULL ,
+	CONSTRAINT [PK_CLASE_TIERRAS] PRIMARY KEY  CLUSTERED 
+	(
+		[ClaTi_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_CLASE_TI_REFERENCE_ZONA_HOM] FOREIGN KEY 
+	(
+		[ZonHo_Codigo]
+	) REFERENCES [ZONA_HOMOGENEA] (
+		[ZonHo_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [CONDICIONES_IMP_ADICIONAL] (
+	[ParGe_Codigo] [numeric](19, 4) NOT NULL ,
+	[ParGe_ValImpDesde] [numeric](19, 4) NULL ,
+	[ParGe_ValImpHasta] [numeric](19, 4) NULL ,
+	[ParGe_FactCondicImp] [numeric](19, 4) NULL ,
+	[ParGe_CodImpAdic] [numeric](19, 4) NULL ,
+	CONSTRAINT [PK_CONDICIONES_IMP_ADICIONAL] PRIMARY KEY  CLUSTERED 
+	(
+		[ParGe_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [CONSERV_CULTIVOS] (
+	[TipCu_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[ConCu_Tipo] [varchar] (50) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[ConCu_Valor] [numeric](19, 4) NULL ,
+	CONSTRAINT [PK_CONSERV_CULTIVOS] PRIMARY KEY  CLUSTERED 
+	(
+		[TipCu_Codigo],
+		[ConCu_Tipo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_CONSERV__REFERENCE_TIPO_CUL] FOREIGN KEY 
+	(
+		[TipCu_Codigo]
+	) REFERENCES [TIPO_CULTIVO] (
+		[TipCu_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [CONSERV_OBRAS_INTE] (
+	[ConObI_Codigo] [int] NOT NULL ,
+	[ConObI_Descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[ConObI_Coeficiente] [numeric](19, 4) NULL ,
+	CONSTRAINT [PK_CONSERV_OBRAS_INTE] PRIMARY KEY  CLUSTERED 
+	(
+		[ConObI_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [CULTIVOS_INVER_PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TipCu_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	[ConCu_Tipo] [varchar] (15) COLLATE Modern_Spanish_CI_AS NULL ,
+	[CulInP_Superficie] [numeric](19, 4) NULL ,
+	[CulInP_PlantasxHa] [int] NULL ,
+	[CulInP_Edad] [int] NULL ,
+	[CulInP_Valor] [numeric](19, 4) NULL ,
+	CONSTRAINT [FK_CULTIVOS_REFERENCE_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE ,
+	CONSTRAINT [FK_CULTIVOS_REFERENCE_TIPO_CUL] FOREIGN KEY 
+	(
+		[TipCu_Codigo]
+	) REFERENCES [TIPO_CULTIVO] (
+		[TipCu_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [DESC_EDIF_BLOQUE] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[BloPr_Numero] [int] NULL ,
+	[DesEd_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [FK_DESC_EDI_REFERENCE_BLOQUES_] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral],
+		[BloPr_Numero]
+	) REFERENCES [BLOQUES_PREDIO] (
+		[Pre_CodigoCatastral],
+		[BloPr_Numero]
+	) ON DELETE CASCADE  ON UPDATE CASCADE ,
+	CONSTRAINT [FK_DESC_EDI_REFERENCE_DESC_EDI] FOREIGN KEY 
+	(
+		[DesEd_Codigo]
+	) REFERENCES [DESC_EDIFICACION] (
+		[DesEd_Codigo]
+	) ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [DESC_EDIFICACION] (
+	[DesEd_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[DesEd_CodigoPadre] [varchar] (4) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DesEd_Descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DesEd_CoefUrb] [numeric](19, 4) NULL ,
+	[DesEd_CoefRur] [numeric](19, 4) NULL ,
+	[DesEd_Unidad] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DesEd_Estado] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DesEd_CodigoFicha] [varchar] (3) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_DESC_EDIFICACION] PRIMARY KEY  CLUSTERED 
+	(
+		[DesEd_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [DESC_INVERSIONES_PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DesEd_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DesInP_NumeroArea] [numeric](19, 4) NULL ,
+	CONSTRAINT [FK_DESC_INV_REFERENCE_DESC_EDI] FOREIGN KEY 
+	(
+		[DesEd_Codigo]
+	) REFERENCES [DESC_EDIFICACION] (
+		[DesEd_Codigo]
+	) ON UPDATE CASCADE ,
+	CONSTRAINT [FK_DESC_INV_REFERENCE_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [DESC_TERRENO] (
+	[DesTe_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[Deste_CodigoPadre] [varchar] (4) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DesTe_Descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DesTe_Coeficiente] [numeric](19, 4) NULL ,
+	[DesTe_Estado] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DesTe_CodigoFicha] [varchar] (3) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DesTe_TipoPredio] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_DESC_TERRENO] PRIMARY KEY  CLUSTERED 
+	(
+		[DesTe_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [DESC_TERRENO_PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DesTe_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [FK_DESC_TER_REFERENCE_DESC_TER] FOREIGN KEY 
+	(
+		[DesTe_Codigo]
+	) REFERENCES [DESC_TERRENO] (
+		[DesTe_Codigo]
+	) ON UPDATE CASCADE ,
+	CONSTRAINT [FK_DESC_TER_REFERENCE_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [DIVISION_POLITICA] (
+	[DivPo_Codigo] [varchar] (8) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[DivPo_CodigoPadre] [varchar] (4) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DivPo_Nombre] [varchar] (80) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Divpo_Ubicacion] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_DIVISION_POLITICA] PRIMARY KEY  CLUSTERED 
+	(
+		[DivPo_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [dtproperties] (
+	[id] [int] IDENTITY (1, 1) NOT NULL ,
+	[objectid] [int] NULL ,
+	[property] [varchar] (64) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[value] [varchar] (255) COLLATE Modern_Spanish_CI_AS NULL ,
+	[uvalue] [nvarchar] (255) COLLATE Modern_Spanish_CI_AS NULL ,
+	[lvalue] [image] NULL ,
+	[version] [int] NOT NULL CONSTRAINT [DF__dtpropert__versi__06CD04F7] DEFAULT (0),
+	CONSTRAINT [pk_dtproperties] PRIMARY KEY  CLUSTERED 
+	(
+		[id],
+		[property]
+	)  ON [PRIMARY] 
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+CREATE TABLE [FACTOR_SUPERFICIE] (
+	[ZonHo_Codigo] [int] NULL ,
+	[SupRu_Codigo] [int] NULL ,
+	[FacSu_Factor] [numeric](19, 4) NULL ,
+	CONSTRAINT [FK_FACTOR_S_REFERENCE_SUPERFIC] FOREIGN KEY 
+	(
+		[SupRu_Codigo]
+	) REFERENCES [SUPERFICIE_RURAL] (
+		[SupRu_Codigo]
+	) ON UPDATE CASCADE ,
+	CONSTRAINT [FK_FACTOR_S_REFERENCE_ZONA_HOM] FOREIGN KEY 
+	(
+		[ZonHo_Codigo]
+	) REFERENCES [ZONA_HOMOGENEA] (
+		[ZonHo_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [FICHA_MUNICIPAL] (
+	[FicMu_Ruc] [varchar] (13) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DivPo_Codigo] [varchar] (30) COLLATE Modern_Spanish_CI_AS NULL ,
+	[FicMu_Nombre] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[FicMu_Direccion] [varchar] (80) COLLATE Modern_Spanish_CI_AS NULL ,
+	[FicMu_Telefono] [varchar] (9) COLLATE Modern_Spanish_CI_AS NULL ,
+	[FicMu_Fax] [varchar] (9) COLLATE Modern_Spanish_CI_AS NULL ,
+	[FicMu_Email] [varchar] (80) COLLATE Modern_Spanish_CI_AS NULL ,
+	[FicMu_Path] [varchar] (200) COLLATE Modern_Spanish_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [FORESTALES] (
+	[TipCu_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[For_EdadDesde] [int] NOT NULL ,
+	[For_EdadHasta] [int] NULL ,
+	[For_Valor] [numeric](19, 4) NULL ,
+	CONSTRAINT [PK_FORESTALES] PRIMARY KEY  CLUSTERED 
+	(
+		[TipCu_Codigo],
+		[For_EdadDesde]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_FORESTAL_REFERENCE_TIPO_CUL] FOREIGN KEY 
+	(
+		[TipCu_Codigo]
+	) REFERENCES [TIPO_CULTIVO] (
+		[TipCu_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [FRENTE_FONDO] (
+	[FreFo_Desde] [numeric](19, 4) NULL ,
+	[FreFo_Hasta] [numeric](19, 4) NULL ,
+	[FreFo_valor] [numeric](19, 4) NULL 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [INFRA_SERV] (
+	[InfSe_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[InfSe_CodigoPadre] [varchar] (4) COLLATE Modern_Spanish_CI_AS NULL ,
+	[InfSe_Descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[InfSe_Coeficiente] [numeric](19, 4) NULL ,
+	[InfSe_Estado] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	[InfSe_CodigoFicha] [varchar] (5) COLLATE Modern_Spanish_CI_AS NULL ,
+	[InfSe_TipoPredio] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_INFRA_SERV] PRIMARY KEY  CLUSTERED 
+	(
+		[InfSe_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [INFRA_SERV_PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[InfSe_codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	[InfSeP_Medidor] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [FK_INFRA_SERV_PREDIO_INFRA_SERV] FOREIGN KEY 
+	(
+		[InfSe_codigo]
+	) REFERENCES [INFRA_SERV] (
+		[InfSe_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE ,
+	CONSTRAINT [FK_INFRA_SERV_PREDIO_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [INSTITUCION] (
+	[Ins_Ruc] [varchar] (13) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[Ins_Nombre] [varchar] (35) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TipOr_Codigo] [varchar] (4) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_INSTITUCION] PRIMARY KEY  CLUSTERED 
+	(
+		[Ins_Ruc]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_INSTITUC_REFERENCE_TIPO_ORG] FOREIGN KEY 
+	(
+		[TipOr_Codigo]
+	) REFERENCES [TIPO_ORGANIZACION] (
+		[TipOr_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [INTERES_MORA] (
+	[IntMo_Año] [varchar] (4) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[IntMo_Mes] [varchar] (2) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[IntMo_Valor] [numeric](19, 4) NULL ,
+	CONSTRAINT [PK_INTERES_MORA] PRIMARY KEY  CLUSTERED 
+	(
+		[IntMo_Año],
+		[IntMo_Mes]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [LOCALIZACION_PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[LocPr_CartaTopografica] [varchar] (15) COLLATE Modern_Spanish_CI_AS NULL ,
+	[LocPr_FotoAerea] [varchar] (15) COLLATE Modern_Spanish_CI_AS NULL ,
+	[LocPr_Otros] [varchar] (20) COLLATE Modern_Spanish_CI_AS NULL ,
+	[LocPr_CoordEste] [varchar] (8) COLLATE Modern_Spanish_CI_AS NULL ,
+	[LocPr_CoordNorte] [varchar] (8) COLLATE Modern_Spanish_CI_AS NULL ,
+	[LocPr_ColindNorte] [varchar] (40) COLLATE Modern_Spanish_CI_AS NULL ,
+	[LocPr_ColindSur] [varchar] (40) COLLATE Modern_Spanish_CI_AS NULL ,
+	[LocPr_ColindEste] [varchar] (40) COLLATE Modern_Spanish_CI_AS NULL ,
+	[LocPr_ColindOeste] [varchar] (40) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [FK_LOCALIZA_REFERENCE_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [MENU_USUARIO] (
+	[MenUs_Codigo] [varchar] (4) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[MenUs_CodigoPadre] [varchar] (4) COLLATE Modern_Spanish_CI_AS NULL ,
+	[MenUs_descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Usu_Codigo] [int] NULL ,
+	[MenUs_fecha] [datetime] NULL ,
+	CONSTRAINT [PK_MENU_USUARIO] PRIMARY KEY  CLUSTERED 
+	(
+		[MenUs_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_MENU_USU_REFERENCE_USUARIO] FOREIGN KEY 
+	(
+		[Usu_Codigo]
+	) REFERENCES [USUARIO] (
+		[Usu_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [OBRAS_INT_INVER_PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[ConObI_Codigo] [int] NULL ,
+	[TipObI_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	[ObInIP_Valor] [numeric](19, 4) NULL ,
+	[ObInIP_Avaluo] [numeric](19, 4) NULL ,
+	CONSTRAINT [FK_OBRAS_IN_REFERENCE_CONSERV_] FOREIGN KEY 
+	(
+		[ConObI_Codigo]
+	) REFERENCES [CONSERV_OBRAS_INTE] (
+		[ConObI_Codigo]
+	),
+	CONSTRAINT [FK_OBRAS_IN_REFERENCE_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE ,
+	CONSTRAINT [FK_OBRAS_IN_REFERENCE_TIPO_OBR] FOREIGN KEY 
+	(
+		[TipObI_Codigo]
+	) REFERENCES [TIPO_OBRAS_INTER] (
+		[TipObI_Codigo]
+	)
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [PARAMETROS_DETERM_PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[ParDe_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	[ParDeP_valor] [numeric](19, 4) NULL ,
+	[ParDeP_fecha] [datetime] NULL ,
+	CONSTRAINT [FK_PARAMETR_REFERENCE_PARAMETR] FOREIGN KEY 
+	(
+		[ParDe_Codigo]
+	) REFERENCES [PARAMETROS_DETERMINACION] (
+		[ParDe_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE ,
+	CONSTRAINT [FK_PARAMETR_REFERENCE_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [PARAMETROS_DETERMINACION] (
+	[ParDe_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[ParDe_CodigoPadre] [varchar] (4) COLLATE Modern_Spanish_CI_AS NULL ,
+	[ParDe_Descripcion] [varchar] (60) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_PARAMETROS_DETERMINACION] PRIMARY KEY  CLUSTERED 
+	(
+		[ParDe_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [PARAMETROS_GENERALES] (
+	[CoeDeE_Codigo] [varchar] (4) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[CoeDeE_CodigoPadre] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[CoeDeE_Descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[CoeDeE_Estado] [char] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	[CoeDeE_Valor] [numeric](19, 4) NULL ,
+	CONSTRAINT [PK_PARAMETROS_GENERALES] PRIMARY KEY  CLUSTERED 
+	(
+		[CoeDeE_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [PISTA_AUDITORIA] (
+	[PisAu_id] [int] NOT NULL ,
+	[Usu_Codigo] [int] NULL ,
+	[Usu_Nombre] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[PisAu_Fecha] [datetime] NULL ,
+	[PisAu_Ip] [varchar] (16) COLLATE Modern_Spanish_CI_AS NULL ,
+	[PisAu_Maquina] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[PisAu_Acciones] [varchar] (255) COLLATE Modern_Spanish_CI_AS NULL ,
+	[PisAu_Desc] [varchar] (255) COLLATE Modern_Spanish_CI_AS NULL ,
+	[PisAu_Desc2] [varchar] (255) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_PISTA_AUDITORIA] PRIMARY KEY  CLUSTERED 
+	(
+		[PisAu_id]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_PISTA_AU_REFERENCE_USUARIO] FOREIGN KEY 
+	(
+		[Usu_Codigo]
+	) REFERENCES [USUARIO] (
+		[Usu_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [PRECIO_BASE] (
+	[PreBa_Codigo] [int] NOT NULL ,
+	[PreBa_CodZona] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[PreBa_CodSect] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[PreBa_CodMz] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[PreBa_CodDesde] [varchar] (3) COLLATE Modern_Spanish_CI_AS NULL ,
+	[PreBa_CodHasta] [varchar] (3) COLLATE Modern_Spanish_CI_AS NULL ,
+	[PreBa_Valor] [numeric](19, 4) NULL ,
+	[DivPo_Codigo] [varchar] (8) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_PRECIO_BASE] PRIMARY KEY  CLUSTERED 
+	(
+		[PreBa_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_PRECIO_B_REFERENCE_DIVISION] FOREIGN KEY 
+	(
+		[DivPo_Codigo]
+	) REFERENCES [DIVISION_POLITICA] (
+		[DivPo_Codigo]
+	) ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[Pre_FechaIngreso] [datetime] NULL ,
+	[DivPo_Codigo] [varchar] (8) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_CodigoAnterior] [varchar] (18) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Ubi_Codigo] [varchar] (8) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_Numero] [varchar] (10) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_NombrePredio] [varchar] (100) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pro_RucPropietario] [varchar] (13) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Ciu_Cedula] [varchar] (10) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Ciu_RepLegal] [varchar] (10) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_PropietarioAnterior] [varchar] (42) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_AreaTotalTer] [numeric](19, 4) NULL ,
+	[Pre_AreaTotalConst] [numeric](19, 4) NULL ,
+	[Pre_FrentePrincipal] [numeric](19, 4) NULL ,
+	[Pre_FondoRelativo] [numeric](19, 4) NULL ,
+	[Pre_FrenteFondo] [numeric](19, 4) NULL ,
+	[Pre_Dominio] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_Escritura] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_Notaria] [varchar] (4) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_FechaInscri] [datetime] NULL ,
+	[Pre_LugarInscri] [varchar] (30) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_RegProp] [varchar] (4) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_Fechareg] [datetime] NULL ,
+	[Pre_Observaciones] [varchar] (250) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_DimTomadoPlanos] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_OtraFuenteInf] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_DescnPropietario] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_linderosDef] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_NumNuevoBloque] [int] NULL ,
+	[Pre_NumAmpliBloque] [int] NULL ,
+	[Pre_Tipo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_Emplazamiento] [varchar] (100) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_Dimensionamiento] [varchar] (100) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_PropiedadHorizontal] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_NumeroDivisiones] [int] NULL ,
+	[Pre_PathFoto] [varchar] (100) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_Estado] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_areaTCartog] [numeric](19, 4) NULL ,
+	[Pre_Urbmarginal] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_PorcentajeDominio] [numeric](18, 2) NULL ,
+	[Pre_detalleDominio] [varchar] (20) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pre_tipoMixto] [smallint] NOT NULL CONSTRAINT [DF__PREDIO__Pre_tipo__3A4CA8FD] DEFAULT (0),
+	[Pre_valorTipoMixto] [numeric](19, 4) NOT NULL CONSTRAINT [DF__PREDIO__Pre_valo__3B40CD36] DEFAULT (0),
+	CONSTRAINT [PK_PREDIO] PRIMARY KEY  CLUSTERED 
+	(
+		[Pre_CodigoCatastral]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_PREDIO_REFERENCE_CIUDADAN] FOREIGN KEY 
+	(
+		[Ciu_RepLegal]
+	) REFERENCES [CIUDADANO] (
+		[Ciu_Cedula]
+	),
+	CONSTRAINT [FK_PREDIO_REFERENCE_DIVISION] FOREIGN KEY 
+	(
+		[DivPo_Codigo]
+	) REFERENCES [DIVISION_POLITICA] (
+		[DivPo_Codigo]
+	) ON UPDATE CASCADE ,
+	CONSTRAINT [FK_PREDIO_REFERENCE_UBICACIO] FOREIGN KEY 
+	(
+		[Ubi_Codigo]
+	) REFERENCES [UBICACION] (
+		[Ubi_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [PRESTAMOS_HIPOTECARIOS] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[PreHi_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	[PreHi_Monto] [numeric](19, 4) NULL ,
+	[PreHi_Concesion] [datetime] NULL ,
+	[PreHi_Plazo] [int] NULL ,
+	[PreHi_Entidad] [varchar] (60) COLLATE Modern_Spanish_CI_AS NULL ,
+	[preHi_Excencion] [numeric](18, 0) NULL CONSTRAINT [DF_PRESTAMOS_HIPOTECARIOS_preHi_Excencion] DEFAULT (0),
+	CONSTRAINT [FK_PRESTAMO_REFERENCE_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [PROPIETARIO] (
+	[Ins_Ruc] [varchar] (13) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[Ciu_Cedula] [varchar] (10) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[Pro_CiudadDomicilio] [varchar] (30) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pro_DireccionDomicilio] [varchar] (40) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pro_Telefono] [varchar] (9) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Pro_Email] [varchar] (30) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_PROPIETARIO] PRIMARY KEY  CLUSTERED 
+	(
+		[Ins_Ruc],
+		[Ciu_Cedula]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_PROPIETA_REFERENCE_CIUDADAN] FOREIGN KEY 
+	(
+		[Ciu_Cedula]
+	) REFERENCES [CIUDADANO] (
+		[Ciu_Cedula]
+	) ON DELETE CASCADE  ON UPDATE CASCADE ,
+	CONSTRAINT [FK_PROPIETA_REFERENCE_INSTITUC] FOREIGN KEY 
+	(
+		[Ins_Ruc]
+	) REFERENCES [INSTITUCION] (
+		[Ins_Ruc]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [SUPERFICIE_RURAL] (
+	[SupRu_Codigo] [int] NOT NULL ,
+	[SupRu_ValorIni] [numeric](19, 4) NULL ,
+	[SupRu_ValorFin] [numeric](19, 4) NULL ,
+	[SupRu_ConstRango] [numeric](19, 4) NULL ,
+	CONSTRAINT [PK_SUPERFICIE_RURAL] PRIMARY KEY  CLUSTERED 
+	(
+		[SupRu_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [syscolumns] (
+	[name] [sysname] NOT NULL ,
+	[id] [int] NOT NULL ,
+	[xtype] [tinyint] NOT NULL ,
+	[typestat] [tinyint] NOT NULL ,
+	[xusertype] [smallint] NOT NULL ,
+	[length] [smallint] NOT NULL ,
+	[xprec] [tinyint] NOT NULL ,
+	[xscale] [tinyint] NOT NULL ,
+	[colid] [smallint] NOT NULL ,
+	[xoffset] [smallint] NOT NULL ,
+	[bitpos] [tinyint] NOT NULL ,
+	[reserved] [tinyint] NOT NULL ,
+	[colstat] [smallint] NOT NULL ,
+	[cdefault] [int] NOT NULL ,
+	[domain] [int] NOT NULL ,
+	[number] [smallint] NOT NULL ,
+	[colorder] [smallint] NOT NULL ,
+	[autoval] [varbinary] (8000) NULL ,
+	[offset] [smallint] NOT NULL ,
+	[collationid] [int] NULL ,
+	[language] [int] NOT NULL ,
+	[status] AS (convert(tinyint,(([bitpos] & 7) + case when ([typestat] & 1 = 0) then 8 else 0 end + case when (([typestat] & 2 <> 0 or (type_name([xtype]) = 'image' or type_name([xtype]) = 'text') and [colstat] & 0x1000 <> 0)) then 16 else 0 end + case when (((type_name([xtype]) = 'image' or type_name([xtype]) = 'text') and [colstat] & 0x2000 <> 0 or (type_name([xtype]) = 'timestamp' or (type_name([xtype]) = 'char' or type_name([xtype]) = 'binary')) and [typestat] & 1 = 0)) then 32 else 0 end + case when ([colstat] & 4 <> 0) then 64 else 0 end + case when ([colstat] & 1 <> 0) then 128 else 0 end))) ,
+	[type] AS (convert(tinyint,xtypetotds([xtype],(1 - ([typestat] & 1))))) ,
+	[usertype] AS (convert(smallint,columnproperty([id],[name],'oldusertype'))) ,
+	[printfmt] AS (convert(varchar(255),[autoval])) ,
+	[prec] AS (convert(smallint,case when ((type_name([xtype]) = 'ntext' or (type_name([xtype]) = 'image' or type_name([xtype]) = 'text'))) then null when (type_name([xtype]) = 'uniqueidentifier') then [xprec] else (odbcprec([xtype],[length],[xprec])) end)) ,
+	[scale] AS (odbcscale([xtype],[xscale])) ,
+	[iscomputed] AS (convert(int,sign(([colstat] & 4)))) ,
+	[isoutparam] AS (convert(int,sign(([colstat] & 4)))) ,
+	[isnullable] AS (convert(int,(1 - ([typestat] & 1)))) ,
+	[collation] AS (convert(sysname,collationpropertyfromid([collationid],'name'))) ,
+	[tdscollation] AS (convert(binary(5),collationpropertyfromid([collationid],'tdscollation'))) 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [syscomments] (
+	[id] [int] NOT NULL ,
+	[number] [smallint] NOT NULL ,
+	[colid] [smallint] NOT NULL ,
+	[status] [smallint] NOT NULL ,
+	[ctext] [varbinary] (8000) NOT NULL ,
+	[texttype] AS (convert(smallint,(2 + 4 * ([status] & 1)))) ,
+	[language] AS (convert(smallint,0)) ,
+	[encrypted] AS (convert(bit,([status] & 1))) ,
+	[compressed] AS (convert(bit,([status] & 2))) ,
+	[text] AS (convert(nvarchar(4000),case when ([status] & 2 = 2) then (uncompress([ctext])) else [ctext] end)) 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [sysdepends] (
+	[id] [int] NOT NULL ,
+	[depid] [int] NOT NULL ,
+	[number] [smallint] NOT NULL ,
+	[depnumber] [smallint] NOT NULL ,
+	[status] [smallint] NOT NULL ,
+	[deptype] [tinyint] NOT NULL ,
+	[depdbid] AS (convert(smallint,0)) ,
+	[depsiteid] AS (convert(smallint,0)) ,
+	[selall] AS (convert(bit,([status] & 2))) ,
+	[resultobj] AS (convert(bit,([status] & 4))) ,
+	[readobj] AS (convert(bit,([status] & 8))) 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [sysfilegroups] (
+	[groupid] [smallint] NOT NULL ,
+	[allocpolicy] [smallint] NOT NULL ,
+	[status] [int] NOT NULL ,
+	[groupname] [sysname] NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [sysfiles] (
+	[fileid] [smallint] NOT NULL ,
+	[groupid] [smallint] NOT NULL ,
+	[size] [int] NOT NULL ,
+	[maxsize] [int] NOT NULL ,
+	[growth] [int] NOT NULL ,
+	[status] [int] NOT NULL ,
+	[perf] [int] NOT NULL ,
+	[name] [nchar] (128) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[filename] [nchar] (260) COLLATE Modern_Spanish_CI_AS NOT NULL 
+)
+GO
+
+
+CREATE TABLE [sysfiles1] (
+	[status] [int] NOT NULL ,
+	[fileid] [smallint] NOT NULL ,
+	[name] [nchar] (128) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[filename] [nchar] (260) COLLATE Modern_Spanish_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [sysforeignkeys] (
+	[constid] [int] NOT NULL ,
+	[fkeyid] [int] NOT NULL ,
+	[rkeyid] [int] NOT NULL ,
+	[fkey] [smallint] NOT NULL ,
+	[rkey] [smallint] NOT NULL ,
+	[keyno] [smallint] NOT NULL 
+)
+GO
+
+
+CREATE TABLE [sysfulltextcatalogs] (
+	[ftcatid] [smallint] NOT NULL ,
+	[name] [sysname] NOT NULL ,
+	[status] [smallint] NOT NULL ,
+	[path] [nvarchar] (260) COLLATE Modern_Spanish_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [sysfulltextnotify] (
+	[tableid] [int] NOT NULL ,
+	[rowinfo] [smallint] NOT NULL ,
+	[ftkey] [varbinary] (896) NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [sysindexes] (
+	[id] [int] NOT NULL ,
+	[status] [int] NOT NULL ,
+	[first] [binary] (6) NOT NULL ,
+	[indid] [smallint] NOT NULL ,
+	[root] [binary] (6) NOT NULL ,
+	[minlen] [smallint] NOT NULL ,
+	[keycnt] [smallint] NOT NULL ,
+	[groupid] [smallint] NOT NULL ,
+	[dpages] [int] NOT NULL ,
+	[reserved] [int] NOT NULL ,
+	[used] [int] NOT NULL ,
+	[rowcnt] [bigint] NOT NULL ,
+	[rowmodctr] [int] NOT NULL ,
+	[reserved3] [tinyint] NOT NULL ,
+	[reserved4] [tinyint] NOT NULL ,
+	[xmaxlen] [smallint] NOT NULL ,
+	[maxirow] [smallint] NOT NULL ,
+	[OrigFillFactor] [tinyint] NOT NULL ,
+	[StatVersion] [tinyint] NOT NULL ,
+	[reserved2] [int] NOT NULL ,
+	[FirstIAM] [binary] (6) NOT NULL ,
+	[impid] [smallint] NOT NULL ,
+	[lockflags] [smallint] NOT NULL ,
+	[pgmodctr] [int] NOT NULL ,
+	[keys] [varbinary] (1088) NULL ,
+	[name] [sysname] NOT NULL ,
+	[statblob] [image] NULL ,
+	[maxlen] AS (8000) ,
+	[rows] AS (case when ([rowcnt] > 2147483647) then 2147483647 else (convert(int,[rowcnt])) end) 
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+CREATE TABLE [sysindexkeys] (
+	[id] [int] NOT NULL ,
+	[indid] [smallint] NOT NULL ,
+	[colid] [smallint] NOT NULL ,
+	[keyno] [smallint] NOT NULL 
+)
+GO
+
+
+CREATE TABLE [sysmembers] (
+	[memberuid] [smallint] NOT NULL ,
+	[groupuid] [smallint] NOT NULL 
+)
+GO
+
+
+CREATE TABLE [sysobjects] (
+	[name] [sysname] NOT NULL ,
+	[id] [int] NOT NULL ,
+	[xtype] [char] (2) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[uid] [smallint] NOT NULL ,
+	[info] [smallint] NOT NULL ,
+	[status] [int] NOT NULL ,
+	[base_schema_ver] [int] NOT NULL ,
+	[replinfo] [int] NOT NULL ,
+	[parent_obj] [int] NOT NULL ,
+	[crdate] [datetime] NOT NULL ,
+	[ftcatid] [smallint] NOT NULL ,
+	[schema_ver] AS ([base_schema_ver] & ((~15))) ,
+	[stats_schema_ver] AS ([base_schema_ver] & 15) ,
+	[type] AS (convert(char(2),case when (([xtype] = 'UQ' or [xtype] = 'PK')) then 'K' else [xtype] end)) ,
+	[userstat] AS (convert(smallint,case when (([xtype] = 'S' or [xtype] = 'U')) then 1 else 0 end)) ,
+	[sysstat] AS (convert(smallint,(case [xtype] when 'S' then 1 when 'V' then 2 when 'U' then 3 when 'P' then 4 when 'RF' then 4 when 'X' then 4 when 'L' then 5 when 'D' then 6 when 'R' then 7 when 'TR' then 8 when 'PK' then 9 when 'UQ' then 9 when 'C' then 10 when 'F' then 11 when 'AP' then 13 else 0 end + case when (([xtype] = 'S' or [xtype] = 'U')) then (case when ([status] & 1 <> 0) then 16 else 0 end + case when ([status] & 2 <> 0) then 32 else 0 end + 64 + case when (substring([name],1,1) = '#') then 256 else 0 end + case when ([status] & 0x01000000 <> 0) then 512 else 0 end + case when ([status] & 0x200000 <> 0) then 1024 else 0 end + case when ([status] & 0x04000000 <> 0) then 2048 else 0 end + case when ([status] & 4 <> 0) then 8192 else 0 end + case when (substring([name],1,2) = '##') then (-32768) else 0 end) else 0 end))) ,
+	[indexdel] AS (convert(smallint,(([base_schema_ver] & ((~15))) / 65536))) ,
+	[refdate] AS (convert(datetime,[crdate])) ,
+	[version] AS (convert(int,0)) ,
+	[deltrig] AS (convert(int,case when (([xtype] = 'S' or [xtype] = 'U')) then (objectproperty([id],'TableDeleteTrigger')) when ([xtype] = 'TR') then [parent_obj] else 0 end)) ,
+	[instrig] AS (convert(int,case when (([xtype] = 'S' or [xtype] = 'U')) then (objectproperty([id],'TableInsertTrigger')) else 0 end)) ,
+	[updtrig] AS (convert(int,case when (([xtype] = 'S' or [xtype] = 'U')) then (objectproperty([id],'TableUpdateTrigger')) else 0 end)) ,
+	[seltrig] AS (convert(int,0)) ,
+	[category] AS (convert(int,(case when ([status] & 0x80000000 <> 0) then 2 else 0 end + case when ([replinfo] & 1 <> 0) then 32 else 0 end + case when ([replinfo] & 2 <> 0) then 64 else 0 end + case when ([replinfo] & 4 <> 0) then 256 else 0 end + case when ([xtype] = 'P' and ([status] & 2 <> 0)) then 16 else 0 end + case when ([xtype] = 'D' and ([parent_obj] <> 0)) then 2048 else 0 end + case when (([xtype] = 'S' or [xtype] = 'U')) then (case when ([status] & 0x20 <> 0) then 1 else 0 end + case when ([status] & 0x0400 <> 0) then 4 else 0 end + case when ([status] & 0x0800 <> 0) then 8 else 0 end + case when ([status] & 0x1000 <> 0) then 128 else 0 end + case when ([status] & 0x0100 <> 0) then 512 else 0 end + case when ([status] & 0x0200 <> 0) then 1024 else 0 end + case when ([status] & 0x2000 <> 0) then 2048 else 0 end + case when ([status] & 0x4000 <> 0) then 4096 else 0 end + case when ([status] & 0x10 <> 0) then 16384 else 0 end) else 0 end))) ,
+	[cache] AS (convert(smallint,0)) 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [syspermissions] (
+	[id] [int] NOT NULL ,
+	[grantee] [smallint] NOT NULL ,
+	[grantor] [smallint] NOT NULL ,
+	[actadd] [smallint] NOT NULL ,
+	[actmod] [smallint] NOT NULL ,
+	[seladd] [varbinary] (4000) NULL ,
+	[selmod] [varbinary] (4000) NULL ,
+	[updadd] [varbinary] (4000) NULL ,
+	[updmod] [varbinary] (4000) NULL ,
+	[refadd] [varbinary] (4000) NULL ,
+	[refmod] [varbinary] (4000) NULL 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [sysproperties] (
+	[id] [int] NOT NULL ,
+	[smallid] [smallint] NOT NULL ,
+	[type] [tinyint] NOT NULL ,
+	[name] [sysname] NOT NULL ,
+	[value] [sql_variant] NULL 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [sysprotects] (
+	[id] [int] NOT NULL ,
+	[uid] [smallint] NOT NULL ,
+	[action] [tinyint] NOT NULL ,
+	[protecttype] [tinyint] NOT NULL ,
+	[columns] [varbinary] (4000) NULL ,
+	[grantor] [smallint] NOT NULL 
+)
+GO
+
+
+CREATE TABLE [sysreferences] (
+	[constid] [int] NOT NULL ,
+	[fkeyid] [int] NOT NULL ,
+	[rkeyid] [int] NOT NULL ,
+	[rkeyindid] [smallint] NOT NULL ,
+	[keycnt] [smallint] NOT NULL ,
+	[forkeys] [varbinary] (32) NOT NULL ,
+	[refkeys] [varbinary] (32) NOT NULL ,
+	[fkeydbid] AS (convert(smallint,0)) ,
+	[rkeydbid] AS (convert(smallint,0)) ,
+	[fkey1] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],1,2))),0))) ,
+	[fkey2] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],3,2))),0))) ,
+	[fkey3] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],5,2))),0))) ,
+	[fkey4] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],7,2))),0))) ,
+	[fkey5] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],9,2))),0))) ,
+	[fkey6] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],11,2))),0))) ,
+	[fkey7] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],13,2))),0))) ,
+	[fkey8] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],15,2))),0))) ,
+	[fkey9] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],17,2))),0))) ,
+	[fkey10] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],19,2))),0))) ,
+	[fkey11] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],21,2))),0))) ,
+	[fkey12] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],23,2))),0))) ,
+	[fkey13] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],25,2))),0))) ,
+	[fkey14] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],27,2))),0))) ,
+	[fkey15] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],29,2))),0))) ,
+	[fkey16] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([forkeys],31,2))),0))) ,
+	[rkey1] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],1,2))),0))) ,
+	[rkey2] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],3,2))),0))) ,
+	[rkey3] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],5,2))),0))) ,
+	[rkey4] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],7,2))),0))) ,
+	[rkey5] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],9,2))),0))) ,
+	[rkey6] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],11,2))),0))) ,
+	[rkey7] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],13,2))),0))) ,
+	[rkey8] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],15,2))),0))) ,
+	[rkey9] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],17,2))),0))) ,
+	[rkey10] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],19,2))),0))) ,
+	[rkey11] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],21,2))),0))) ,
+	[rkey12] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],23,2))),0))) ,
+	[rkey13] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],25,2))),0))) ,
+	[rkey14] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],27,2))),0))) ,
+	[rkey15] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],29,2))),0))) ,
+	[rkey16] AS (convert(smallint,isnull(convert(binary(2),reverse(substring([refkeys],31,2))),0))) 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [systypes] (
+	[name] [sysname] NOT NULL ,
+	[xtype] [tinyint] NOT NULL ,
+	[status] [tinyint] NOT NULL ,
+	[xusertype] [smallint] NOT NULL ,
+	[length] [smallint] NOT NULL ,
+	[xprec] [tinyint] NOT NULL ,
+	[xscale] [tinyint] NOT NULL ,
+	[tdefault] [int] NOT NULL ,
+	[domain] [int] NOT NULL ,
+	[uid] [smallint] NOT NULL ,
+	[reserved] [smallint] NOT NULL ,
+	[collationid] [int] NULL ,
+	[usertype] AS (convert(smallint,typeproperty([name],'oldusertype'))) ,
+	[variable] AS (convert(bit,case when ((type_name([xtype]) = 'nvarchar' or (type_name([xtype]) = 'varchar' or type_name([xtype]) = 'varbinary'))) then 1 else 0 end)) ,
+	[allownulls] AS (convert(bit,(1 - ([status] & 1)))) ,
+	[type] AS (convert(tinyint,xtypetotds([xtype],0))) ,
+	[printfmt] AS (convert(varchar(255),null)) ,
+	[prec] AS (convert(smallint,case when ((type_name([xtype]) = 'ntext' or (type_name([xtype]) = 'image' or type_name([xtype]) = 'text'))) then null else (typeproperty([name],'precision')) end)) ,
+	[scale] AS (convert(tinyint,typeproperty([name],'scale'))) ,
+	[collation] AS (convert(sysname,collationpropertyfromid([collationid],'name'))) 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [sysusers] (
+	[uid] [smallint] NOT NULL ,
+	[status] [smallint] NOT NULL ,
+	[name] [sysname] NOT NULL ,
+	[sid] [varbinary] (85) NULL ,
+	[roles] [varbinary] (2048) NOT NULL ,
+	[createdate] [datetime] NOT NULL ,
+	[updatedate] [datetime] NOT NULL ,
+	[altuid] [smallint] NOT NULL ,
+	[password] [varbinary] (256) NULL ,
+	[gid] AS (convert(smallint,case when ([uid] >= 16400) then [uid] when ((datalength([roles]) is null or datalength([roles]) <= 2)) then 0 else (16384 - 8 + datalength([roles]) * 8 + case when (convert(tinyint,[roles]) & 1 <> 0) then 0 when (convert(tinyint,[roles]) & 2 <> 0) then 1 when (convert(tinyint,[roles]) & 4 <> 0) then 2 when (convert(tinyint,[roles]) & 8 <> 0) then 3 when (convert(tinyint,[roles]) & 16 <> 0) then 4 when (convert(tinyint,[roles]) & 32 <> 0) then 5 when (convert(tinyint,[roles]) & 64 <> 0) then 6 when (convert(tinyint,[roles]) & 128 <> 0) then 7 end) end)) ,
+	[environ] AS (convert(varchar(255),null)) ,
+	[hasdbaccess] AS (convert(int,case when ([status] & 2 = 2) then 1 else 0 end)) ,
+	[islogin] AS (convert(int,case when ([status] & 32 = 0 and [uid] > 0 and ([uid] < 16384)) then 1 else 0 end)) ,
+	[isntname] AS (convert(int,case when ([status] & 4 = 4) then 1 else 0 end)) ,
+	[isntgroup] AS (convert(int,case when ([status] & 12 = 4) then 1 else 0 end)) ,
+	[isntuser] AS (convert(int,case when ([status] & 12 = 12) then 1 else 0 end)) ,
+	[issqluser] AS (convert(int,case when ([status] & 60 = 0 and [uid] > 0 and ([uid] < 16384)) then 1 else 0 end)) ,
+	[isaliased] AS (convert(int,case when ([status] & 16 = 16) then 1 else 0 end)) ,
+	[issqlrole] AS (convert(int,case when (([uid] >= 16384 or [uid] = 0)) then 1 else 0 end)) ,
+	[isapprole] AS (convert(int,case when ([status] & 32 = 32) then 1 else 0 end)) 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [TABLAS_RURAL] (
+	[UsoSuR_Codigo] [varchar] (3) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TabRu_ValorIni] [numeric](19, 4) NULL ,
+	[TabRu_ValorFin] [numeric](19, 4) NULL ,
+	[TabRu_Valor] [numeric](19, 4) NULL ,
+	CONSTRAINT [FK_TABLAS_RURAL_USO_SUELO_RURAL] FOREIGN KEY 
+	(
+		[UsoSuR_Codigo]
+	) REFERENCES [USO_SUELO_RURAL] (
+		[UsoSuR_Codigo]
+	) ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [TERRENO_RURAL_PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[ClaTi_Codigo] [int] NULL ,
+	[UsoSuR_Codigo] [varchar] (3) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TerRuP_Superficie] [numeric](19, 4) NULL ,
+	[TerRuP_ValUniHect] [numeric](19, 4) NULL ,
+	[TerRup_ValSubTotal] [numeric](19, 4) NULL ,
+	CONSTRAINT [FK_TERRENO__REFERENCE_CLASE_TI] FOREIGN KEY 
+	(
+		[ClaTi_Codigo]
+	) REFERENCES [CLASE_TIERRAS] (
+		[ClaTi_Codigo]
+	),
+	CONSTRAINT [FK_TERRENO__REFERENCE_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE ,
+	CONSTRAINT [FK_TERRENO__REFERENCE_USO_SUEL] FOREIGN KEY 
+	(
+		[UsoSuR_Codigo]
+	) REFERENCES [USO_SUELO_RURAL] (
+		[UsoSuR_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [TIPO_CULTIVO] (
+	[TipCu_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[TipCu_CodPadre] [varchar] (4) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TipCu_Descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TipCu_Porcentaje] [numeric](19, 4) NULL ,
+	[TipCu_Indicador] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_TIPO_CULTIVO] PRIMARY KEY  CLUSTERED 
+	(
+		[TipCu_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [TIPO_OBRAS_INTER] (
+	[TipObI_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[TipObI_CodPadre] [varchar] (4) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TipObI_Descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TipObI_Unidad] [varchar] (10) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TipObI_Valor] [numeric](19, 4) NULL ,
+	CONSTRAINT [PK_TIPO_OBRAS_INTER] PRIMARY KEY  CLUSTERED 
+	(
+		[TipObI_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [TIPO_ORGANIZACION] (
+	[TipOr_Codigo] [varchar] (4) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[TipOr_CodigoPadre] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TipOr_Descripcion] [varchar] (100) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_TIPO_ORGANIZACION] PRIMARY KEY  CLUSTERED 
+	(
+		[TipOr_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [TITULOS_PAGADOS] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPa_NumTitulo] [varchar] (15) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPa_ValTotalTerrPredio] [numeric](18, 2) NULL ,
+	[TitPa_ValTotalEdifPredio] [numeric](18, 2) NULL ,
+	[TitPa_ValCultivos] [numeric](18, 2) NULL ,
+	[TitPa_ValForestales] [numeric](18, 2) NULL ,
+	[TitPa_ValObrasInter] [numeric](18, 2) NULL ,
+	[TitPa_ValOtrasInver] [numeric](18, 2) NULL ,
+	[TitPa_ValComerPredio] [numeric](18, 2) NULL ,
+	[TitPa_IPU] [numeric](19, 4) NULL ,
+	[TitPa_SolNoEdif] [numeric](19, 4) NULL ,
+	[TitPa_Bomberos] [numeric](19, 4) NULL ,
+	[TitPa_FechaEmision] [datetime] NULL ,
+	[TitPa_ValorEmitido] [numeric](19, 4) NULL ,
+	[TitPa_Descuento] [numeric](19, 4) NULL ,
+	[TitPa_Recargo] [numeric](19, 4) NULL ,
+	[TitPa_Interes] [numeric](19, 4) NULL ,
+	[TitPa_ValorTCobrado] [numeric](19, 4) NULL ,
+	[TitPa_Estado] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPa_FechaRecaudacion] [datetime] NULL ,
+	[TitPa_TasaAdministrativa] [numeric](19, 4) NULL ,
+	[TitPa_RebajaHipotec] [numeric](19, 4) NULL ,
+	[TitPa_BaseImponible] [numeric](19, 4) NULL ,
+	[TitPa_ConstObsoleta] [numeric](19, 4) NULL ,
+	[TitPa_TituloGral] [varchar] (18) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPa_SNERecargo] [numeric](19, 4) NULL ,
+	[TitPa_Observaciones] [varchar] (250) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Usu_usuarios] [varchar] (15) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Titpa_RUC_CI] [varchar] (13) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPa_DireccionCont] [varchar] (100) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPa_Nombres] [varchar] (138) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Titpa_Propietario] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPa_Tipo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPa_Valor1] [numeric](19, 4) NULL ,
+	[TitPa_Valor2] [numeric](19, 4) NULL ,
+	CONSTRAINT [FK_TITULOS_PAGADOS_TITULOS_PREDIO] FOREIGN KEY 
+	(
+		[TitPa_NumTitulo]
+	) REFERENCES [TITULOS_PREDIO] (
+		[TitPr_NumTitulo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [TITULOS_PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPr_NumTitulo] [varchar] (15) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[TitPr_ValTotalTerrPredio] [numeric](19, 4) NULL ,
+	[TitPr_ValTotalEdifPredio] [numeric](19, 4) NULL ,
+	[TitPr_ValCultivos] [numeric](19, 4) NULL ,
+	[TitPr_ValForestales] [numeric](19, 4) NULL ,
+	[TitPr_ValObrasInter] [numeric](19, 4) NULL ,
+	[TitPr_ValOtrasInver] [numeric](19, 4) NULL ,
+	[TitPr_ValComerPredio] [numeric](19, 4) NULL ,
+	[TitPr_IPU] [numeric](19, 4) NULL ,
+	[TitPr_SolNoEdif] [numeric](19, 4) NULL ,
+	[TitPr_Bomberos] [numeric](19, 4) NULL ,
+	[TitPr_FechaEmision] [datetime] NULL ,
+	[TitPr_ValorEmitido] [numeric](19, 4) NULL ,
+	[TitPr_Descuento] [numeric](19, 4) NULL ,
+	[TitPr_Recargo] [numeric](19, 4) NULL ,
+	[TitPr_Interes] [numeric](19, 4) NULL ,
+	[TitPr_ValorTCobrado] [numeric](19, 4) NULL ,
+	[TitPr_Estado] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPr_FechaRecaudacion] [datetime] NULL ,
+	[TitPr_TasaAdministrativa] [numeric](19, 4) NULL ,
+	[TitPr_RebajaHipotec] [numeric](19, 4) NULL ,
+	[TitPr_BaseImponible] [numeric](19, 4) NULL ,
+	[TitPr_ConstObsoleta] [numeric](19, 4) NULL ,
+	[TitPr_TituloGral] [varchar] (18) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPr_SNERecargo] [numeric](19, 4) NULL ,
+	[TitPr_Observaciones] [varchar] (250) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Usu_usuario] [varchar] (15) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Titpr_RUC_CI] [varchar] (13) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPr_DireccionCont] [varchar] (100) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPr_Nombres] [varchar] (138) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Titpr_Propietario] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPr_Tipo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPr_Valor1] [numeric](19, 4) NULL ,
+	[TitPr_Valor2] [numeric](19, 4) NULL ,
+	CONSTRAINT [PK_TITULOS_PREDIO] PRIMARY KEY  CLUSTERED 
+	(
+		[TitPr_NumTitulo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [TITULOS_PROVISIONAL] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPro_NumTitulo] [varchar] (15) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[TitPro_ValTotalTerrPredio] [numeric](19, 4) NULL ,
+	[TitPro_ValTotalEdifPredio] [numeric](19, 4) NULL ,
+	[TitPro_ValCultivos] [numeric](19, 4) NULL ,
+	[TitPro_ValForestales] [numeric](19, 4) NULL ,
+	[TitPro_ValObrasInter] [numeric](19, 4) NULL ,
+	[TitPro_ValOtrasInver] [numeric](19, 4) NULL ,
+	[TitPro_ValComerPredio] [numeric](19, 4) NULL ,
+	[TitPro_IPU] [numeric](19, 4) NULL ,
+	[TitPro_SolNoEdif] [numeric](19, 4) NULL ,
+	[TitPro_Bomberos] [numeric](19, 4) NULL ,
+	[TitPro_FechaEmision] [smalldatetime] NULL ,
+	[TitPro_ValorEmitido] [numeric](19, 4) NULL ,
+	[TitPro_Descuento] [numeric](19, 4) NULL ,
+	[TitPro_Recargo] [numeric](19, 4) NULL ,
+	[TitPro_Interes] [numeric](19, 4) NULL ,
+	[TitPro_ValorTCobrado] [numeric](19, 4) NULL ,
+	[TitPro_Estado] [char] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPro_FechaRecaudacion] [smalldatetime] NULL ,
+	[TitPro_TasaAdministrativa] [numeric](19, 4) NULL ,
+	[TitPro_RebajaHipotec] [numeric](19, 4) NULL ,
+	[TitPro_BaseImponible] [numeric](19, 4) NULL ,
+	[TitPro_ConstObsoleta] [numeric](19, 4) NULL ,
+	[TitPro_TituloGral] [varchar] (18) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPro_SNERecargo] [numeric](19, 4) NULL ,
+	[TitPro_Observaciones] [varchar] (255) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Usu_Usuario] [varchar] (15) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Titpro_RUC_CI] [varchar] (13) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPro_DireccionCont] [varchar] (100) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPro_Nombres] [varchar] (138) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Titpro_Propietario] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPro_Tipo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TitPro_Valor1] [numeric](19, 4) NULL ,
+	[TitPro_Valor2] [numeric](19, 4) NULL ,
+	CONSTRAINT [PK_TITULOS_PROVISIONAL] PRIMARY KEY  CLUSTERED 
+	(
+		[TitPro_NumTitulo]
+	)  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [TRAS_DOMINIO] (
+	[TraDo_Codigo] [int] NOT NULL ,
+	[TraDo_Descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TraDo_Estado] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TraDo_CodigoFicha] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TraDo_Tipo] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_TRAS_DOMINIO] PRIMARY KEY  CLUSTERED 
+	(
+		[TraDo_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [TRAS_DOMINIO_PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[TraDo_Codigo] [int] NULL ,
+	CONSTRAINT [FK_TRAS_DOM_REFERENCE_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE ,
+	CONSTRAINT [FK_TRAS_DOM_REFERENCE_TRAS_DOM] FOREIGN KEY 
+	(
+		[TraDo_Codigo]
+	) REFERENCES [TRAS_DOMINIO] (
+		[TraDo_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [UBICACION] (
+	[Ubi_Codigo] [varchar] (8) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[Ubi_CodigoPadre] [varchar] (4) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Ubi_Descripcion] [varchar] (80) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DivPo_Codigo] [varchar] (8) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_UBICACION] PRIMARY KEY  CLUSTERED 
+	(
+		[Ubi_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_UBICACIO_REFERENCE_DIVISION] FOREIGN KEY 
+	(
+		[DivPo_Codigo]
+	) REFERENCES [DIVISION_POLITICA] (
+		[DivPo_Codigo]
+	)
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [USO_SUELO] (
+	[UsoSu_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[UsoSu_CodigoPadre] [varchar] (4) COLLATE Modern_Spanish_CI_AS NULL ,
+	[UsuSu_Descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[UsoSu_Coeficiente] [numeric](19, 4) NULL ,
+	[UsoSu_Estado] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_USO_SUELO] PRIMARY KEY  CLUSTERED 
+	(
+		[UsoSu_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [USO_SUELO_PREDIO] (
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[UsoSu_Codigo] [varchar] (6) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [FK_USO_SUEL_REFERENCE_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE ,
+	CONSTRAINT [FK_USO_SUEL_REFERENCE_USO_SUEL] FOREIGN KEY 
+	(
+		[UsoSu_Codigo]
+	) REFERENCES [USO_SUELO] (
+		[UsoSu_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [USO_SUELO_RURAL] (
+	[UsoSuR_Codigo] [varchar] (3) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[UsoSuR_Descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[UsoSuR_Coeficiente] [numeric](19, 4) NULL ,
+	[UsoSuR_Estado] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_USO_SUELO_RURAL] PRIMARY KEY  CLUSTERED 
+	(
+		[UsoSuR_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [USUARIO] (
+	[Usu_Codigo] [int] NOT NULL ,
+	[DivPo_Codigo] [varchar] (8) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Usu_Nombre] [varchar] (40) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Usu_Usuario] [varchar] (15) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Usu_Clave] [varchar] (15) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Usu_Perfil] [varchar] (30) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Usu_Mes] [varchar] (2) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Usu_Descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[Usu_Estado] [varchar] (1) COLLATE Modern_Spanish_CI_AS NULL ,
+	CONSTRAINT [PK_USUARIO] PRIMARY KEY  CLUSTERED 
+	(
+		[Usu_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_USUARIO_REFERENCE_DIVISION] FOREIGN KEY 
+	(
+		[DivPo_Codigo]
+	) REFERENCES [DIVISION_POLITICA] (
+		[DivPo_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [VALOR_APLIC_EDIFICACION] (
+	[ValApE_Codigo] [varchar] (50) COLLATE Modern_Spanish_CI_AS NOT NULL ,
+	[ValApE_hormigon] [numeric](19, 4) NULL ,
+	[ValApE_hierro] [numeric](19, 4) NULL ,
+	[ValApE_maderaFina] [numeric](19, 4) NULL ,
+	[ValApE_MaderaComun] [numeric](19, 4) NULL ,
+	[ValApE_BloqueLadrillo] [numeric](19, 4) NULL ,
+	[ValApE_bahareque] [numeric](19, 4) NULL ,
+	[ValApE_adobeTapial] [numeric](19, 4) NULL ,
+	[ValApE_Estable] [numeric](19, 4) NULL ,
+	[ValApE_Areparar] [numeric](19, 4) NULL ,
+	[ValApE_Obsoleto] [numeric](19, 4) NULL 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [VALOR_APLIC_RURAL] (
+	[ClaTi_Codigo] [int] NULL ,
+	[SupRu_Codigo] [int] NULL ,
+	[ValApR_ValorTerreno] [numeric](19, 4) NULL ,
+	CONSTRAINT [FK_VALOR_AP_REFERENCE_CLASE_TI] FOREIGN KEY 
+	(
+		[ClaTi_Codigo]
+	) REFERENCES [CLASE_TIERRAS] (
+		[ClaTi_Codigo]
+	) ON DELETE CASCADE  ON UPDATE CASCADE ,
+	CONSTRAINT [FK_VALOR_AP_REFERENCE_SUPERFIC] FOREIGN KEY 
+	(
+		[SupRu_Codigo]
+	) REFERENCES [SUPERFICIE_RURAL] (
+		[SupRu_Codigo]
+	)
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [VALORES_PREDIO] (
+	[PerCa_Codigo] [numeric](19, 4) NULL ,
+	[Pre_CodigoCatastral] [varchar] (19) COLLATE Modern_Spanish_CI_AS NULL ,
+	[ValPr_CoefAfecTerr] [numeric](19, 4) NULL ,
+	[ValPr_ValM2TerrAfec] [numeric](19, 4) NULL ,
+	[ValPr_ValTotalTerrPredio] [numeric](19, 4) NULL ,
+	[ValPr_ValTotalEdifPredio] [numeric](19, 4) NULL ,
+	[ValPr_ValCultivos] [numeric](19, 4) NULL ,
+	[ValPr_ValForestales] [numeric](19, 4) NULL ,
+	[ValPr_ValObrasInter] [numeric](19, 4) NULL ,
+	[ValPr_ValOtrasInver] [numeric](19, 4) NULL ,
+	[ValPr_ValComerPredio] [numeric](19, 4) NULL ,
+	[ValPr_BaseImponible] [numeric](19, 4) NULL ,
+	[ValPr_IPU] [numeric](19, 4) NULL ,
+	[ValPr_SolNoEdif] [numeric](19, 4) NULL ,
+	[ValPr_Bomberos] [numeric](19, 4) NULL ,
+	[ValPr_ValorEmitido] [numeric](19, 4) NULL ,
+	[ValPr_RebajaHipotec] [numeric](19, 4) NULL ,
+	[ValPr_ConstObsoleta] [numeric](19, 4) NULL ,
+	[ValPr_SNERecargo] [numeric](19, 4) NULL ,
+	[ValPr_Valor1] [numeric](19, 4) NULL ,
+	[ValPr_Valor2] [numeric](19, 4) NULL ,
+	CONSTRAINT [FK_VALORES__REFERENCE_PREDIO] FOREIGN KEY 
+	(
+		[Pre_CodigoCatastral]
+	) REFERENCES [PREDIO] (
+		[Pre_CodigoCatastral]
+	) ON DELETE CASCADE  ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [ZONA_HOMOGENEA] (
+	[ZonHo_Codigo] [int] NOT NULL ,
+	[ZonHo_Descripcion] [varchar] (50) COLLATE Modern_Spanish_CI_AS NULL ,
+	[DivPo_Codigo] [varchar] (8) COLLATE Modern_Spanish_CI_AS NULL ,
+	[ZonHo_PrecioBase] [numeric](19, 4) NULL ,
+	CONSTRAINT [PK_ZONA_HOMOGENEA] PRIMARY KEY  CLUSTERED 
+	(
+		[ZonHo_Codigo]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_ZONA_HOM_REFERENCE_DIVISION] FOREIGN KEY 
+	(
+		[DivPo_Codigo]
+	) REFERENCES [DIVISION_POLITICA] (
+		[DivPo_Codigo]
+	) ON UPDATE CASCADE 
+) ON [PRIMARY]
+GO
+
+
